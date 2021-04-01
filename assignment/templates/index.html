@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Soflab</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/fonts/font-awesome.min.css')}}">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="#page-top">Soflab&nbsp;</a><button
+                data-toggle="collapse" data-target="#navbarResponsive"
+                class="navbar-toggler text-white bg-primary navbar-toggler-right text-uppercase rounded"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i
+                    class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="#about">About</a></li>
+                    {% if login %}
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            href="#Details">Details</a></li>
+                    {%endif%}
+                    <button class="nav-item mx-0 mx-lg-1 btn"><a class="nav-link  rounded js-scroll-trigger"
+                            style="color: var(--primary);"
+                            href="http://localhost:8000/{% if login %}logout{% else %}login{% endif %}">
+                            {% if login %}
+                            LOGOUT
+                            {% else %}
+                            LOGIN
+                            {% endif %}
+                        </a></button>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="text-white bg-primary mb-0" id="about" style="margin-top: 72px;">
+        <div class="container">
+            <h2 class="text-uppercase text-center text-white">About</h2>
+            <hr class="star-light mb-5">
+            <div class="row">
+                <div class="col-lg-4 ml-auto">
+                    <p class="lead">Freelancer is a free bootstrap theme. The download includes the complete source
+                        files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy
+                        customization.</p>
+                </div>
+                <div class="col-lg-4 mr-auto">
+                    <p class="lead">Whether you're a student looking to showcase your work, a professional looking to
+                        attract clients, or a graphic artist looking to share your projects, this template is the
+                        perfect starting point!</p>
+                </div>
+            </div>
+            <div class="text-center mt-4"></div>
+        </div>
+    </section>
+    {% if login %}
+    <section id="Details" style="border-color: var(--blue);">
+        <div class="container">
+            <h2 class="text-uppercase text-center text-secondary mb-0">Details</h2>
+            <hr class="star-dark mb-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <form id="contactForm" name="sentMessage" novalidate="novalidate" action="http://localhost:8000/do">
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                <input class="form-control" type="text" name="youtube" placeholder="Youtube Playlist"
+                                    required=""><small class="form-text text-danger help-block"></small></div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                <input class="form-control" type="text" name="spotify" required=""
+                                    placeholder="Spotify Playlist"><small
+                                    class="form-text text-danger help-block"></small></div>
+                        </div>
+                        <div id="success"></div>
+                        <div class="form-group"><button class="btn btn-primary btn-block btn-xl" id="sendMessageButton"
+                                type="submit" style="margin-top: 20px;">Send</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <footer class="text-center footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Location</h4>
+                    <p>2215 John Daniel Drive<br>Clark, MO 65243</p>
+                </div>
+                <div class="col-md-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase">Around the Web</h4>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a
+                                class="btn btn-outline-light text-center btn-social rounded-circle" role="button"
+                                href="#"><i class="fa fa-facebook fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a
+                                class="btn btn-outline-light text-center btn-social rounded-circle" role="button"
+                                href="#"><i class="fa fa-google-plus fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a
+                                class="btn btn-outline-light text-center btn-social rounded-circle" role="button"
+                                href="#"><i class="fa fa-twitter fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a
+                                class="btn btn-outline-light text-center btn-social rounded-circle" role="button"
+                                href="#"><i class="fa fa-dribbble fa-fw"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                    <p class="lead mb-0"><span>Freelance is a free to use, open source Bootstrap theme.&nbsp;</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="text-center text-white copyright py-4">
+        <div class="container"><small>Copyright ©&nbsp;Soflab 2021</small></div>
+    </div>
+    <div class="d-lg-none scroll-to-top position-fixed rounded"><a
+            class="text-center text-white d-block js-scroll-trigger rounded" href="#page-top"><i
+                class="fa fa-chevron-up"></i></a></div>
+    <script src="{{ url_for('static',filename='assets/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static',filename='assets/js/freelancer.js')}}"></script>
+</body>
+
+</html>
