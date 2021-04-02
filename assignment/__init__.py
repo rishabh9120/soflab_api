@@ -1,3 +1,4 @@
+from assignment import routes
 from flask import Flask
 import os
 from authlib.integrations.flask_client import OAuth
@@ -29,9 +30,7 @@ CLIENT_CONFIG = {'web': {
     'token_uri': 'https://www.googleapis.com/oauth2/v3/token',
     'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
     'client_secret': os.getenv("GOOGLE_CLIENT_SECRET"),
-    'redirect_uris': os.getenv("GOOGLE_REDIRECT_URIS"),
-    'javascript_origins': os.getenv("GOOGLE_JAVASCRIPT_ORIGINS")}}
+    'redirect_uris': os.getenv("GOOGLE_REDIRECT_URIS")}}
 
 # This scope will allow the application to manage your calendars
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-from assignment import routes
