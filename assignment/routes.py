@@ -57,6 +57,7 @@ def login():
 @app.route("/do")
 def do():
     if(not loggedin()):
+        print("invalid access")
         return redirect(url_for('home'))
     sp_pl = request.args.get("spotify")
     yt_pl = request.args.get("youtube")

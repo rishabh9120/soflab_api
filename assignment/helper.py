@@ -51,8 +51,11 @@ def get_uris(titles):
         songs = resp.json()
         # print("artist : {},song: {}".format(artist,songname))
         # print(songs)
-        uri = songs["tracks"]["items"][0]["uri"]
-        ans.append(uri)
+        try:
+            uri = songs["tracks"]["items"][0]["uri"]
+            ans.append(uri)
+        except:
+            print(i,"is not available")
     return ans
 
 
