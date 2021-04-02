@@ -2,14 +2,14 @@ from flask import render_template, redirect, url_for, request, session
 import google_auth_oauthlib.flow
 import google.oauth2.credentials
 import requests
-from assignment import app, oauth
+from assignment import app, oauth,CLIENT_CONFIG
 from assignment.helper import *
 
 
 @app.route("/authorize")
 def getauth():
-    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        'client_secret_2.json', scopes=['https://www.googleapis.com/auth/youtube.force-ssl'])
+    flow = google_auth_oauthlib.flow.Flow.from_client_config(
+        client_config=CLIENT_CONFIG, scopes=['https://www.googleapis.com/auth/youtube.force-ssl'])
     flow.redirect_uri = url_for('outhcallback', _external=True)
 
     authorization_url, state = flow.authorization_url(
@@ -23,8 +23,8 @@ def getauth():
 def outhcallback():
     # print("hiii")
     state = session['state']
-    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        'client_secret_2.json',
+    flow = google_auth_oauthlib.flow.Flow.from_client_config(
+        client_config=CLIENT_CONFIG,
         scopes=['https://www.googleapis.com/auth/youtube.force-ssl'],
         state=state)
     flow.redirect_uri = url_for('outhcallback', _external=True)
