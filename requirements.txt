@@ -1,0 +1,5 @@
+google-api-python-client
+requests
+authlib
+flask
+python-dotenv

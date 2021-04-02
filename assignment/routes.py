@@ -10,7 +10,8 @@ from assignment.helper import *
 def getauth():
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         'client_secret_2.json', scopes=['https://www.googleapis.com/auth/youtube.force-ssl'])
-    flow.redirect_uri = 'http://localhost:8000/outhcallback'
+    flow.redirect_uri = url_for('outhcallback', _external=True)
+
     authorization_url, state = flow.authorization_url(
         access_type='offline', include_granted_scopes='true')
     session['state'] = state
@@ -59,9 +60,12 @@ def do():
         return redirect(url_for('home'))
     sp_pl = request.args.get("spotify")
     yt_pl = request.args.get("youtube")
-    titles = give_songslist(yt_pl)
-    uri = get_uris(titles)
-    addsongs(sp_pl, uri)
+    try:
+        titles = give_songslist(yt_pl)
+        uri = get_uris(titles)
+        addsongs(sp_pl, uri)
+    except:
+        print("error")
     return redirect(url_for("home"))
 
 
