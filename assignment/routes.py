@@ -118,5 +118,5 @@ def logout():
 
 @app.route("/")
 def home():
-
+    print("in home dirtory")
     return render_template("index.html", login=loggedin())
