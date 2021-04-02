@@ -74,7 +74,7 @@ def create_playlist(name):
         }
     )
     response_json = response.json()
-
+    print("playlist created")
     # playlist id
     return response_json["id"]
 
