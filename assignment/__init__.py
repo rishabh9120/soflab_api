@@ -31,4 +31,6 @@ CLIENT_CONFIG = {'web': {
     'client_secret': os.getenv("GOOGLE_CLIENT_SECRET"),
     'redirect_uris': os.getenv("GOOGLE_REDIRECT_URIS")}}
 
+errors=[]
+success=[]
 from assignment import routes

@@ -3,7 +3,8 @@ import json
 import google.oauth2.credentials
 from googleapiclient.discovery import build
 import requests
-from assignment import spotify
+from assignment import spotify,errors,success
+import youtube_dl
 
 
 def loggedin():
@@ -28,25 +29,36 @@ def give_songslist(yt_pl):
 
         response = youtube.playlistItems().list(part="snippet,contentDetails",
                                                 playlistId=playlist_id, maxResults=50).execute()
+        
         for item in response["items"]:
             video_title = item["snippet"]["title"]
-            titles.append(video_title)
+            code = item["contentDetails"]["videoId"]
+            titles.append([code,video_title])
     else:
         response = youtube.videos().list(part="snippet,contentDetails,statistics",
                                          myRating="like", maxResults=50).execute()
         for item in response["items"]:
             video_title = item["snippet"]["title"]
-            titles.append(video_title)
+            code = item["contentDetails"]["videoId"]
+            titles.append([code,video_title])
     return titles
 
 
 def get_uris(titles):
     ans = []
-    for i in titles:
-        name = i.split("ft")[0]
-        artist, songname = name.split("-")
-        url = "search?query=track%3A{}+artist%3A{}&type=track&offset=0&limit=2".format(
-            songname, artist)
+    for i,j in titles:
+        try:
+            youtube_url = "https://www.youtube.com/watch?v={}".format(i)
+            video = youtube_dl.YoutubeDL({}).extract_info(youtube_url, download=False)
+            songname, artist=video["track"],video["artist"]
+        except:
+                name = j.split("ft")[0]
+                artist, songname = name.split("-")
+        if(songname is None or artist is None):
+                name = j.split("ft")[0]
+                artist, songname = name.split("-")
+        # print(songname,artist)
+        url = "search?query=track%3A{}+artist%3A{}&type=track&offset=0&limit=2".format(songname, artist)
         resp = spotify.get(url, token=session["spotify_login"])
         songs = resp.json()
         # print("artist : {},song: {}".format(artist,songname))
@@ -55,7 +67,7 @@ def get_uris(titles):
             uri = songs["tracks"]["items"][0]["uri"]
             ans.append(uri)
         except:
-            print(i,"is not available")
+            errors.append(str(i)+"is not available")
     return ans
 
 
@@ -109,3 +121,6 @@ def addsongs(name, uri):
 
     response_json = response.json()
     return response_json
+def clearstate():
+    errors.clear()
+    success.clear()
