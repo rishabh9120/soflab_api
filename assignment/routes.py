@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, request, session
 import google_auth_oauthlib.flow
 import google.oauth2.credentials
 import requests
-from assignment import app, oauth,CLIENT_CONFIG,errors,success
+from assignment import app, oauth, CLIENT_CONFIG, errors, success
 from assignment.helper import *
 
 
@@ -123,4 +123,4 @@ def logout():
 @app.route("/")
 def home():
     print("in home dirtory")
-    return render_template("index.html", login=loggedin(),error=errors,success=success)
+    return render_template("index.html", login=loggedin(), error=errors, success=success)
