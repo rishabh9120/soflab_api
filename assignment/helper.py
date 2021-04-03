@@ -52,8 +52,9 @@ def get_uris(titles):
             video = youtube_dl.YoutubeDL({}).extract_info(youtube_url, download=False)
             songname, artist=video["track"],video["artist"]
         except:
-                name = j.split("ft")[0]
-                artist, songname = name.split("-")
+            continue
+            # name = j.split("ft")[0]
+            # artist, songname = name.split("-")
         if(songname is None or artist is None):
                 name = j.split("ft")[0]
                 artist, songname = name.split("-")
